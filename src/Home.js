@@ -1,4 +1,4 @@
-
+import ListItem from './components/ListItem';
 
 function Home() {
 
@@ -7,16 +7,32 @@ function Home() {
   }
 
   const todos = [
-    'Fregar los platos',
-    'Sacar a pasear a Sultán',
-    'Dormir la siesta',
-    'Practicar programación'
+    {
+      id: 1,
+      text: 'Fregar los platos'
+    },
+    {
+      id: 2,
+      text: 'Sacar a pasear a Sultán',
+    },
+    {
+      id: 3,
+      text: 'Dormir la siesta',
+    },
+    {
+      id: 4,
+      text: 'Practicar programación',
+    },
+    {
+      id: 5,
+      text: 'Ir al gimnasio'
+    },
   ];
 
 
   const resultado = todos.map(todo => {
     return (
-      <li>{todo}</li>
+      <ListItem  todoItem={todo} key={todo.id} />
     )
   });
 
