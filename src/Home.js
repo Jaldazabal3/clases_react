@@ -1,41 +1,19 @@
+import { useState } from 'react';
+import ItemForm from './components/ItemForm';
 import ListItem from './components/ListItem';
 
 function Home() {
 
-  function showMessage() {
-    alert('it works')
+
+  const [todoList, setTodoList] = useState([]);
+
+
+  function addTodo(todoText) {
+    setTodoList(currentValue => currentValue.concat({
+      id: currentValue.length > 0 ? Math.max(...currentValue.map(element => element.id)) + 1 : 1,
+      text: todoText
+    }));
   }
-
-  const todos = [
-    {
-      id: 1,
-      text: 'Fregar los platos'
-    },
-    {
-      id: 2,
-      text: 'Sacar a pasear a Sultán',
-    },
-    {
-      id: 3,
-      text: 'Dormir la siesta',
-    },
-    {
-      id: 4,
-      text: 'Practicar programación',
-    },
-    {
-      id: 5,
-      text: 'Ir al gimnasio'
-    },
-  ];
-
-
-  const resultado = todos.map(todo => {
-    return (
-      <ListItem  todoItem={todo} key={todo.id} />
-    )
-  });
-
 
 
   return (
@@ -43,10 +21,14 @@ function Home() {
       <h2>
         I am learning react!
       </h2>
-      <button onClick={showMessage}>
-        Click me!
-      </button>
-      {resultado}
+      <ItemForm addTodo={addTodo}/>
+      {
+        todoList.map(todo => {
+          return (
+            <ListItem todoItem={todo} key={todo.id} />
+          )
+        })
+      }
     </div>
   )
 }
