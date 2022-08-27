@@ -1,33 +1,11 @@
+import { useState } from 'react';
 import ListItem from './components/ListItem';
 
 function Home() {
 
-  function showMessage() {
-    alert('it works')
-  }
+  const [newTodo, setNewTodo] = useState('');
 
-  const todos = [
-    {
-      id: 1,
-      text: 'Fregar los platos'
-    },
-    {
-      id: 2,
-      text: 'Sacar a pasear a Sultán',
-    },
-    {
-      id: 3,
-      text: 'Dormir la siesta',
-    },
-    {
-      id: 4,
-      text: 'Practicar programación',
-    },
-    {
-      id: 5,
-      text: 'Ir al gimnasio'
-    },
-  ];
+  const [todos, setTodos] = useState([]);
 
 
   const resultado = todos.map(todo => {
@@ -36,6 +14,15 @@ function Home() {
     )
   });
 
+  const submitForm = (event) => {
+    event.preventDefault();
+    setTodos(currentTodos => [...currentTodos, {
+      id: currentTodos.length === 0 ? 1 : Math.max(...currentTodos.map(todo => todo.id)) + 1,
+      text: newTodo
+    }]);
+    setNewTodo('');
+  }
+
 
 
   return (
@@ -43,9 +30,12 @@ function Home() {
       <h2>
         I am learning react!
       </h2>
-      <button onClick={showMessage}>
-        Click me!
-      </button>
+      <form onSubmit={submitForm}>
+        <input type='text' onChange={(event) => setNewTodo(event.target.value)} value={newTodo} />
+        <button>
+          Add Item!
+        </button>
+      </form>
       {resultado}
     </div>
   )
